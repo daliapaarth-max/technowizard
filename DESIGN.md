@@ -1,0 +1,2 @@
+# Technowizard Design System
+Accent: #C96442. Page bg: #F5F4ED. Cards: #FAF9F5. Sidebar hover: #EEEDE6. Active nav: #E8E6DC. Border: #F0EEE6. Text: #141413 / #5E5D59 / #9B9A96. Success: #09825D. Warning: #D97706. Font: Inter, weights 400 and 500 only. PHI badge: #FEF3C7 bg #D97706 text. Clinical hard-stop: amber left border, lock icon. AI draft: terracotta left border, amber awaiting approval pill. Company: Medvana. Admin: Priya Sharma. Patient: Sarah Kim case MED-4821. Teams: Billing team and Patient Support.
