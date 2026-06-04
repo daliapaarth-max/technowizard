@@ -1,9 +1,17 @@
-import './index.css'
+import { useState } from 'react'
+import KnowledgeSources from './screens/knowledge/KnowledgeSources'
+import KnowledgeArticles from './screens/knowledge/KnowledgeArticles'
+
+type Screen = 'knowledge/sources' | 'knowledge/articles'
 
 export default function App() {
-  return (
-    <div className="h-full flex items-center justify-center bg-page-bg">
-      <span className="text-text-primary font-normal text-base">Technowizard — building</span>
-    </div>
-  )
+  const [screen, setScreen] = useState<Screen>('knowledge/sources')
+  const navigate = (s: string) => setScreen(s as Screen)
+
+  switch (screen) {
+    case 'knowledge/sources':
+      return <KnowledgeSources navigate={navigate} />
+    case 'knowledge/articles':
+      return <KnowledgeArticles navigate={navigate} />
+  }
 }
