@@ -3,13 +3,12 @@ import { colors, font } from '../tokens'
 
 const TOP_ITEMS = [
   { id: 'inbox',     icon: Inbox,     label: 'Inbox',    badge: 3 },
-  { id: 'ai-agent',  icon: Bot,       label: 'AI agent' },
+  { id: 'ai-agent',  icon: Bot,       label: 'AI Agent' },
   { id: 'knowledge', icon: BookOpen,  label: 'Knowledge' },
   { id: 'reports',   icon: BarChart2, label: 'Reports' },
   { id: 'outbound',  icon: Send,      label: 'Outbound' },
   { id: 'contacts',  icon: Users,     label: 'Contacts' },
 ]
-
 const BOTTOM_ITEMS = [
   { id: 'search',   icon: Search,   label: 'Search' },
   { id: 'settings', icon: Settings, label: 'Settings' },
@@ -17,51 +16,51 @@ const BOTTOM_ITEMS = [
 
 interface GlobalNavProps {
   activeSection: string
+  onNavigate?: (section: string) => void
 }
 
-export default function GlobalNav({ activeSection }: GlobalNavProps) {
+export default function GlobalNav({ activeSection, onNavigate }: GlobalNavProps) {
   return (
     <nav
-      className="flex flex-col items-center h-full py-3 gap-1"
-      style={{ background: colors.navBg }}
+      className="flex flex-col h-full py-2"
+      style={{ background: colors.sidebarBg, borderRight: `1px solid ${colors.border}` }}
     >
       {/* Logo */}
-      <div className="mb-3 flex items-center justify-center w-10 h-10">
-        <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-          <rect width="22" height="22" rx="6" fill={colors.accent} />
-          <path d="M11 4L7 11h3.5L9 18l6-8h-3.5L14 4h-3z" fill="white" strokeWidth="0" />
-        </svg>
+      <div className="flex items-center gap-2 px-3 py-2 mb-1">
+        <div
+          className="flex items-center justify-center rounded-lg flex-none"
+          style={{ width: '22px', height: '22px', background: colors.accent }}
+        >
+          <svg width="13" height="13" viewBox="0 0 14 14" fill="none">
+            <path d="M7 1.5L4.5 7h2.5L5.5 12.5l5-6H8L9.5 1.5H7z" fill="white" />
+          </svg>
+        </div>
+        <span style={{ fontSize: font.sm, fontWeight: font.medium, color: colors.textPrimary }}>Wiz AI</span>
       </div>
 
-      {/* Top nav icons */}
-      <div className="flex flex-col items-center gap-0.5 flex-1 w-full px-2">
+      {/* Top nav */}
+      <div className="flex flex-col flex-1 px-2 gap-0.5">
         {TOP_ITEMS.map(({ id, icon: Icon, label, badge }) => {
           const isActive = activeSection === id
           return (
             <button
               key={id}
-              title={label}
-              className="relative flex items-center justify-center w-10 h-10 rounded-lg transition-colors"
+              onClick={() => onNavigate?.(id)}
+              className="relative flex items-center gap-2 w-full rounded-md text-left transition-colors"
               style={{
-                background: isActive ? colors.navActiveBg : 'transparent',
-                color: isActive ? colors.navText : colors.navTextMuted,
+                padding: '5px 8px',
+                background: isActive ? colors.activeNavBg : 'transparent',
+                color: isActive ? colors.textPrimary : colors.textSecondary,
               }}
-              onMouseEnter={e => {
-                if (!isActive) (e.currentTarget as HTMLButtonElement).style.background = colors.navHoverBg
-              }}
-              onMouseLeave={e => {
-                if (!isActive) (e.currentTarget as HTMLButtonElement).style.background = 'transparent'
-              }}
+              onMouseEnter={e => { if (!isActive) (e.currentTarget as HTMLButtonElement).style.background = colors.sidebarHover }}
+              onMouseLeave={e => { if (!isActive) (e.currentTarget as HTMLButtonElement).style.background = 'transparent' }}
             >
-              <Icon size={18} strokeWidth={1.75} />
+              <Icon size={14} strokeWidth={isActive ? 2 : 1.75} style={{ flexShrink: 0 }} />
+              <span style={{ fontSize: font.sm, fontWeight: isActive ? font.medium : font.regular }}>{label}</span>
               {badge != null && (
                 <span
-                  className="absolute top-1 right-1 flex items-center justify-center rounded-full text-white"
-                  style={{
-                    width: '15px', height: '15px',
-                    fontSize: '9px', fontWeight: font.medium,
-                    background: '#E5382A', lineHeight: 1,
-                  }}
+                  className="flex items-center justify-center rounded-full text-white ml-auto flex-none"
+                  style={{ width: '15px', height: '15px', fontSize: '9px', fontWeight: font.medium, background: '#E5382A' }}
                 >
                   {badge}
                 </span>
@@ -71,35 +70,29 @@ export default function GlobalNav({ activeSection }: GlobalNavProps) {
         })}
       </div>
 
-      {/* Bottom icons + avatar */}
-      <div className="flex flex-col items-center gap-0.5 w-full px-2">
+      {/* Bottom */}
+      <div className="flex flex-col px-2 gap-0.5">
         {BOTTOM_ITEMS.map(({ id, icon: Icon, label }) => (
           <button
             key={id}
-            title={label}
-            className="flex items-center justify-center w-10 h-10 rounded-lg transition-colors"
-            style={{ color: colors.navTextMuted }}
-            onMouseEnter={e => {
-              (e.currentTarget as HTMLButtonElement).style.background = colors.navHoverBg
-              ;(e.currentTarget as HTMLButtonElement).style.color = colors.navText
-            }}
-            onMouseLeave={e => {
-              (e.currentTarget as HTMLButtonElement).style.background = 'transparent'
-              ;(e.currentTarget as HTMLButtonElement).style.color = colors.navTextMuted
-            }}
+            className="flex items-center gap-2 w-full rounded-md text-left transition-colors"
+            style={{ padding: '5px 8px', color: colors.textSecondary }}
+            onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.background = colors.sidebarHover }}
+            onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.background = 'transparent' }}
           >
-            <Icon size={18} strokeWidth={1.75} />
+            <Icon size={14} strokeWidth={1.75} style={{ flexShrink: 0 }} />
+            <span style={{ fontSize: font.sm }}>{label}</span>
           </button>
         ))}
-
-        {/* Avatar */}
-        <button
-          title="Priya Sharma"
-          className="flex items-center justify-center w-8 h-8 rounded-full mt-1 font-medium text-white select-none"
-          style={{ background: colors.accent, fontSize: '11px', fontWeight: 500 }}
-        >
-          P
-        </button>
+        <div className="flex items-center gap-2 px-2 py-1 mt-1">
+          <div
+            className="flex items-center justify-center rounded-full flex-none text-white"
+            style={{ width: '20px', height: '20px', background: colors.accent, fontSize: '10px', fontWeight: font.medium }}
+          >
+            P
+          </div>
+          <span style={{ fontSize: font.sm, color: colors.textSecondary }}>Priya</span>
+        </div>
       </div>
     </nav>
   )

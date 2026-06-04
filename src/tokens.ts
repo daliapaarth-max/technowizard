@@ -1,21 +1,13 @@
 export const colors = {
-  // Light content surface
   pageBg: '#F5F4ED', cardBg: '#FAF9F5',
-  sidebarBg: '#F5F4ED', sidebarHover: '#EEEDE6', activeNavBg: '#E8E6DC',
+  sidebarBg: '#EDECEA', sidebarHover: '#E5E3DC', activeNavBg: '#E0DDD6',
   border: '#E8E6DF', borderStrong: '#DDDBD3',
   textPrimary: '#141413', textSecondary: '#5E5D59', textMuted: '#9B9A96',
   accent: '#C96442', accentHover: '#B5522F', accentLight: '#F0E6E0', accentTint: '#FDF6F3',
   success: '#09825D', successLight: '#DCFCE7',
   warning: '#D97706', warningLight: '#FEF3C7', warningWash: '#FFFBF0',
   danger: '#DC2626', dangerLight: '#FCEBEB',
-  // Dark navigation shell
-  navBg: '#141413',           // global nav rail
-  sectionNavBg: '#1C1B18',    // section nav panel
-  navText: '#F0EFE8',         // primary text on dark nav
-  navTextMuted: 'rgba(240,239,232,0.4)', // muted text on dark nav
-  navActiveBg: 'rgba(255,255,255,0.09)', // active item highlight on dark
-  navHoverBg: 'rgba(255,255,255,0.05)',  // hover on dark nav
 } as const;
-export const layout = { globalNavWidth: '64px', sectionNavWidth: '220px', detailPanelWidth: '320px', inboxListWidth: '280px' } as const;
+export const layout = { globalNavWidth: '100px', sectionNavWidth: '148px', previewPanelWidth: '248px', detailPanelWidth: '320px', inboxListWidth: '280px' } as const;
 export const radius = { sm: '6px', md: '8px', lg: '10px', xl: '12px', pill: '20px' } as const;
 export const font = { xs: '11px', sm: '12px', base: '13px', md: '14px', lg: '15px', xl: '16px', h2: '18px', h1: '20px', regular: 400, medium: 500 } as const;

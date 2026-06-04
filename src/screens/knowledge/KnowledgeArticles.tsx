@@ -376,6 +376,7 @@ export default function KnowledgeArticles({ navigate }: { navigate: (screen: str
       activeSection="knowledge"
       sectionTitle="Knowledge"
       navGroups={nav}
+      navigate={navigate}
       sectionNavFooter={
         <div
           className="rounded-lg p-3 space-y-1.5"

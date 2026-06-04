@@ -7,14 +7,11 @@ export interface NavItem {
   label: string
   onClick?: () => void
   active?: boolean
-  /** Lucide icon component rendered after the label */
   trailingIcon?: ComponentType<{ size?: number; strokeWidth?: number }>
-  /** Shows a ChevronRight and optional child items */
   expandable?: boolean
   expanded?: boolean
   children?: NavItem[]
-  /** Indent level for child items (px) */
-  indent?: number
+  dot?: string
 }
 
 export interface NavGroup {
@@ -26,40 +23,41 @@ interface AppShellProps {
   activeSection: string
   navGroups: NavGroup[]
   sectionTitle: string
-  /** Optional node pinned to the bottom of the section nav */
   sectionNavFooter?: ReactNode
+  sectionNavTitleSlot?: ReactNode
+  rightPanel?: ReactNode
+  navigate?: (screen: string) => void
   children: ReactNode
 }
 
 export default function AppShell({
-  activeSection,
-  navGroups,
-  sectionTitle,
-  sectionNavFooter,
-  children,
+  activeSection, navGroups, sectionTitle,
+  sectionNavFooter, sectionNavTitleSlot, rightPanel, navigate, children,
 }: AppShellProps) {
   return (
     <div className="flex h-full w-full overflow-hidden">
-      {/* 64px global nav rail */}
-      <div
-        className="flex-none"
-        style={{ width: layout.globalNavWidth }}
-      >
-        <GlobalNav activeSection={activeSection} />
+      <div className="flex-none" style={{ width: layout.globalNavWidth }}>
+        <GlobalNav activeSection={activeSection} onNavigate={navigate} />
       </div>
-
-      {/* 220px section nav */}
-      <div
-        className="flex-none flex flex-col"
-        style={{ width: layout.sectionNavWidth }}
-      >
-        <SectionNav title={sectionTitle} navGroups={navGroups} footer={sectionNavFooter} />
+      <div className="flex-none" style={{ width: layout.sectionNavWidth }}>
+        <SectionNav
+          title={sectionTitle}
+          navGroups={navGroups}
+          footer={sectionNavFooter}
+          titleSlot={sectionNavTitleSlot}
+        />
       </div>
-
-      {/* Content area */}
-      <div className="flex-1 bg-pageBg overflow-auto">
+      <div className="flex-1 overflow-auto" style={{ background: '#FAFAF7' }}>
         {children}
       </div>
+      {rightPanel && (
+        <div
+          className="flex-none"
+          style={{ width: layout.previewPanelWidth, borderLeft: '1px solid #E8E6DF', background: '#FAFAF7' }}
+        >
+          {rightPanel}
+        </div>
+      )}
     </div>
   )
 }
